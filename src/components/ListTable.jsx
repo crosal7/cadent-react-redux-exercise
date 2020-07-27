@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const ListTable = (props) => {
-  const deleteItem = (itemId) => {
-    const itemIndex = props.groceryList.findIndex((obj) => {
+  const getItemIndex = (itemId) => {
+    const result = props.groceryList.findIndex((obj) => {
       return obj.id === itemId;
     });
+    return result;
+  };
+
+  const deleteItem = (itemId) => {
+    const itemIndex = getItemIndex(itemId);
     const item = props.groceryList[itemIndex];
 
     if (props.selected.id === item.id) {
@@ -16,18 +21,14 @@ export const ListTable = (props) => {
   };
 
   const selectItem = (itemId) => {
-    const itemIndex = props.groceryList.findIndex((obj) => {
-      return obj.id === itemId;
-    });
+    const itemIndex = getItemIndex(itemId);
     const item = props.groceryList[itemIndex];
 
     props.selectItem(item);
   };
 
   const deselectItem = (itemId) => {
-    const itemIndex = props.groceryList.findIndex((obj) => {
-      return obj.id === itemId;
-    });
+    const itemIndex = getItemIndex(itemId);
     const item = props.groceryList[itemIndex];
 
     if (props.selected.id === item.id) {
